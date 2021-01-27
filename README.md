@@ -112,3 +112,4 @@ Here are some examples of smaller problems that you could look at solving, in an
 
 - Ask questions if you are uncertain or something is unclear to you.
 - Start early, take breaks, celebrate small wins.
+# react-final-project
