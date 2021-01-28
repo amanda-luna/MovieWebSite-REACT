@@ -3,11 +3,22 @@ import { useGlobalContext } from "./context";
 import MovieDetail from "./movieDetail";
 
 const MovieList = () => {
-  const { genres, isLoading } = useGlobalContext();
+  const { genres, movies, isLoading } = useGlobalContext();
 
   if (isLoading) {
     return <div className="loading"></div>;
   }
+
+  // logic to eliminate genres without movies
+  // Need validation
+  let genresWithMovies = [];
+  genres.forEach((genre) => {
+    movies.forEach((movie) => {
+      if (movie.genre_ids.indexOf(genre.id) !== -1) {
+        genresWithMovies.push(genre);
+      }
+    });
+  });
 
   return (
     <div className="titleList">

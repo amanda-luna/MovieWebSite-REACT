@@ -29,7 +29,7 @@ const MovieDetail = (props) => {
 
   // loop through movies array and find movies to show
   let moviesToLoad = [];
-  movies.map((movie) => {
+  movies.forEach((movie) => {
     if (movie.genre_ids.indexOf(props.genreId) !== -1) {
       moviesToLoad.push(movie);
     }
