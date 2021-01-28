@@ -4,9 +4,8 @@ import * as MovieAPI from "./lib/MovieAPI";
 
 const defaultImg = "/image-not-available.jpg";
 
-const MyList = () => {
+const MyListDetail = () => {
   const { moviesMyList, isLoading } = useGlobalContext();
-  // const [myListMovies, setMyListMovies] = useState();
 
   const toggleHeart = (event) => {
     const eventTarget = event.target.parentElement.parentElement;
@@ -58,8 +57,8 @@ const MyList = () => {
                       onClick={toggleHeart}
                     >
                       <div>
-                        <i className="far fa-heart"></i>
-                        <i className="fas fa-heart"></i>
+                        <i className="fa fa-fw fa-plus"></i>
+                        <i className="fa fa-fw fa-check"></i>
                       </div>
                     </div>
                   </div>
@@ -75,4 +74,4 @@ const MyList = () => {
   }
 };
 
-export default MyList;
+export default MyListDetail;
