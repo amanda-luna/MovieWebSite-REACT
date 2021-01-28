@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [error, setError] = useState({ show: false, msg: "" });
   const [genres, setGenres] = useState();
   const [movies, setMovies] = useState();
+  const [moviesMyList, setMoviesMyList] = useState();
   const [query, setQuery] = useState("");
 
   const fetchMovies = async () => {
@@ -18,6 +19,9 @@ const AppProvider = ({ children }) => {
 
       const responseMovies = await MovieAPI.getAll();
       setMovies(responseMovies);
+
+      const moviesMyList = await MovieAPI.getMoviesFromList();
+      setMoviesMyList(moviesMyList);
 
       setIsLoading(false);
     } catch (err) {
@@ -32,7 +36,15 @@ const AppProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ isLoading, error, genres, movies, query, setQuery }}
+      value={{
+        isLoading,
+        error,
+        genres,
+        movies,
+        moviesMyList,
+        query,
+        setQuery,
+      }}
     >
       {children}
     </AppContext.Provider>

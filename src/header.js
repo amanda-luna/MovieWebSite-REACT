@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useGlobalContext } from "./context";
+import { Link } from "react-router-dom";
 
 const SearchForm = () => {
   const { setQuery } = useGlobalContext();
@@ -25,7 +26,7 @@ const SearchForm = () => {
         <nav>
           <ul>
             <li>
-              <a href="/myList">My List</a>
+              <Link to={"/myList"}>My List</Link>
             </li>
           </ul>
         </nav>

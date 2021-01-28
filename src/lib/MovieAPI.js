@@ -27,3 +27,6 @@ export const genres = () =>
 export const movieByGenre = (genreId) => {
   fetch(`${api}/movies?genre_ids=${genreId}`);
 };
+
+export const getMoviesFromList = () =>
+  fetch(`${api}/movies?my_list=true`).then((response) => response.json());
