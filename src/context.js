@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import * as MovieAPI from "./lib/MovieAPI";
+import * as UtilMethods from "./lib/Util";
 
 const AppContext = React.createContext();
 
@@ -15,7 +16,7 @@ const AppProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const response = await MovieAPI.genres();
-      setGenres(response);
+      setGenres(UtilMethods.orderGenresArray(response));
 
       const responseMovies = await MovieAPI.getAll();
       setMovies(responseMovies);
