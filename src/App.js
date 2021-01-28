@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import * as MovieAPI from "./lib/MovieAPI";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./home";
 

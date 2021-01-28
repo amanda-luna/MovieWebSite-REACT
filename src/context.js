@@ -21,6 +21,7 @@ const AppProvider = ({ children }) => {
 
       setIsLoading(false);
     } catch (err) {
+      setError(err);
       console.log(err);
     }
   };
