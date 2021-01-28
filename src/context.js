@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import * as MovieAPI from "./lib/MovieAPI";
-import MovieList from "./movies";
 
 const AppContext = React.createContext();
 
