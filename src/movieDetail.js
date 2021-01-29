@@ -30,18 +30,14 @@ const MovieDetail = (props) => {
     return <div className="loading"></div>;
   }
 
-  // loop through movies array and find movies to show
-  let moviesToLoad = [];
-  movies.forEach((movie) => {
-    if (movie.genre_ids.indexOf(props.genreId) !== -1) {
-      moviesToLoad.push(movie);
-    }
-  });
+  const moviesByGender = movies.filter(
+    (movie) => movie.genre_ids.indexOf(props.genreId) !== -1
+  );
 
-  if (moviesToLoad.length > 0) {
+  if (moviesByGender.length > 0) {
     return (
       <div className="titles-wrapper">
-        {moviesToLoad.map((movie) => {
+        {moviesByGender.map((movie) => {
           const {
             id,
             title,
