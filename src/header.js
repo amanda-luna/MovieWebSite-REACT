@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useGlobalContext } from "./context";
 import { Link } from "react-router-dom";
+import * as MovieAPI from "./lib/MovieAPI";
 
-const SearchForm = (props) => {
-  const { movies, setMovies } = useGlobalContext();
+const SearchForm = () => {
+  const { movies, setMovies, isLoading } = useGlobalContext();
   const [querySearch, setQuerySearch] = useState("");
   const [countMovies, setCountMovies] = useState("");
-
-  // const searchFilter = movies.filter((movie) => movie.includes(querySearch));
 
   useEffect(() => {
     if (querySearch.length >= 1) {
@@ -21,8 +20,19 @@ const SearchForm = (props) => {
       setCountMovies(
         `Found ${moviesFiltered.length} movies with the query '${querySearch}'`
       );
+    } else {
+      const allMovies = async () => {
+        const responseMovies = await MovieAPI.getAll();
+        setMovies(responseMovies);
+        setCountMovies("");
+      };
+      allMovies();
     }
-  });
+  }, [movies, querySearch, setMovies]);
+
+  if (isLoading) {
+    return <div className="loading"></div>;
+  }
 
   return (
     <header className="header">
