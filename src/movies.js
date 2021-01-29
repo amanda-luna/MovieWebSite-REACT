@@ -15,15 +15,22 @@ const MovieList = () => {
   genres.forEach((genre) => {
     movies.forEach((movie) => {
       if (movie.genre_ids.indexOf(genre.id) !== -1) {
-        genresWithMovies.push(genre);
+        let currGenre = genresWithMovies.findIndex((x) => x.id == genre.id);
+        if (currGenre <= -1) {
+          genresWithMovies.push(genre);
+        }
       }
     });
   });
 
+  // genres.forEach((genre) => {
+  //   movies.filter((el) => el.genre_ids.includes(genre.id));
+  // });
+
   return (
     <div className="titleList">
       <div className="title">
-        {genres.map((genre) => {
+        {genresWithMovies.map((genre) => {
           return (
             <div key={genre.id}>
               <h1>{genre.name}</h1>
