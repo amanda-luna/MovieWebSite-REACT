@@ -45,6 +45,7 @@ const AppProvider = ({ children }) => {
         moviesMyList,
         query,
         setQuery,
+        setMoviesMyList,
       }}
     >
       {children}

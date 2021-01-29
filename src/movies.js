@@ -9,23 +9,17 @@ const MovieList = () => {
     return <div className="loading"></div>;
   }
 
-  // logic to eliminate genres without movies
-  // Need validation
   let genresWithMovies = [];
   genres.forEach((genre) => {
     movies.forEach((movie) => {
       if (movie.genre_ids.indexOf(genre.id) !== -1) {
-        let currGenre = genresWithMovies.findIndex((x) => x.id == genre.id);
+        let currGenre = genresWithMovies.findIndex((g) => g.id === genre.id);
         if (currGenre <= -1) {
           genresWithMovies.push(genre);
         }
       }
     });
   });
-
-  // genres.forEach((genre) => {
-  //   movies.filter((el) => el.genre_ids.includes(genre.id));
-  // });
 
   return (
     <div className="titleList">

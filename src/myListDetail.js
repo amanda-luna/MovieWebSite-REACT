@@ -7,7 +7,7 @@ const defaultImg = "/image-not-available.jpg";
 const MyListDetail = () => {
   const { moviesMyList, isLoading, setMoviesMyList } = useGlobalContext();
 
-  const toggleBtn = async (event) => {
+  const updateMovieList = async (event) => {
     const eventTarget = event.target.parentElement.parentElement;
     const movieTarget =
       event.target.parentElement.parentElement.parentElement.parentElement;
@@ -57,7 +57,7 @@ const MyListDetail = () => {
                     <div
                       className="listToggle"
                       data-toggled={my_list}
-                      onClick={toggleBtn}
+                      onClick={updateMovieList}
                     >
                       <div>
                         <i className="fa fa-fw fa-plus"></i>
