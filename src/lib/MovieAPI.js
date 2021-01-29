@@ -24,9 +24,5 @@ export const removeFromList = (id) =>
 export const genres = () =>
   fetch(`${api}/genres`).then((response) => response.json());
 
-export const movieByGenre = (genreId) => {
-  fetch(`${api}/movies?genre_ids=${genreId}`);
-};
-
 export const getMoviesFromList = () =>
   fetch(`${api}/movies?my_list=true`).then((response) => response.json());

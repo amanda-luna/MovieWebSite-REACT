@@ -23,7 +23,6 @@ const MovieDetail = (props) => {
     }
 
     const moviesMyList = await MovieAPI.getMoviesFromList();
-    console.log(moviesMyList);
     setMoviesMyList(moviesMyList);
   };
 
