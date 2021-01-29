@@ -5,9 +5,9 @@ import * as MovieAPI from "./lib/MovieAPI";
 const defaultImg = "/image-not-available.jpg";
 
 const MovieDetail = (props) => {
-  const { movies, isLoading } = useGlobalContext();
+  const { movies, isLoading, setMoviesMyList } = useGlobalContext();
 
-  const toggleHeart = (event) => {
+  const toggleBtn = async (event) => {
     const eventTarget = event.target.parentElement.parentElement;
     const movieTarget =
       event.target.parentElement.parentElement.parentElement.parentElement;
@@ -16,11 +16,15 @@ const MovieDetail = (props) => {
 
     if (isToogled === "false") {
       eventTarget.setAttribute("data-toggled", "true");
-      MovieAPI.addToList(movieTarget.getAttribute("movie_id"));
+      await MovieAPI.addToList(movieTarget.getAttribute("movie_id"));
     } else {
       eventTarget.setAttribute("data-toggled", "false");
-      MovieAPI.removeFromList(movieTarget.getAttribute("movie_id"));
+      await MovieAPI.removeFromList(movieTarget.getAttribute("movie_id"));
     }
+
+    const moviesMyList = await MovieAPI.getMoviesFromList();
+    console.log(moviesMyList);
+    setMoviesMyList(moviesMyList);
   };
 
   if (isLoading) {
@@ -60,7 +64,7 @@ const MovieDetail = (props) => {
                 <div
                   className="listToggle"
                   data-toggled={my_list}
-                  onClick={toggleHeart}
+                  onClick={toggleBtn}
                 >
                   <div>
                     <i className="fa fa-fw fa-plus"></i>
