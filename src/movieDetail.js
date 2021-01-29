@@ -72,8 +72,6 @@ const MovieDetail = (props) => {
         })}
       </div>
     );
-  } else {
-    return <div>No movies to show!</div>;
   }
 };
 
