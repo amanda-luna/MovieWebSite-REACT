@@ -1,34 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useGlobalContext } from "./context";
 import { Link } from "react-router-dom";
 import * as MovieAPI from "./lib/MovieAPI";
 
 const SearchForm = () => {
-  const { movies, setMovies, isLoading } = useGlobalContext();
+  const {
+    movies,
+    setMovies,
+    isLoading,
+    moviesMyList,
+    setMoviesMyList,
+  } = useGlobalContext();
   const [querySearch, setQuerySearch] = useState("");
   const [countMovies, setCountMovies] = useState("");
 
-  useEffect(() => {
+  const location = window.location.pathname;
+
+  const resetMovieList = async () => {
+    const responseMovies = await MovieAPI.getAll();
+    setMovies(responseMovies);
+    setCountMovies("");
+  };
+
+  const resetMyListMovies = async () => {
+    const responseMovies = await MovieAPI.getMoviesFromList();
+    setMoviesMyList(responseMovies);
+    setCountMovies("");
+  };
+
+  const manageMovieSearch = async (event) => {
+    event.preventDefault();
+    let changeContentFunction;
+    let resetMovieListFunction;
+    let movieList = [];
+
+    if (location === "/myList") {
+      movieList = moviesMyList;
+      changeContentFunction = setMoviesMyList;
+      resetMovieListFunction = resetMyListMovies;
+    } else {
+      movieList = movies;
+      changeContentFunction = setMovies;
+      resetMovieListFunction = resetMovieList;
+    }
+
     if (querySearch.length >= 1) {
-      const moviesFiltered = movies.filter(
+      const moviesFiltered = movieList.filter(
         (movie) =>
           movie.title.toLowerCase().includes(querySearch.toLowerCase()) ||
           movie.overview.toLowerCase().includes(querySearch.toLowerCase())
       );
 
-      setMovies(moviesFiltered);
+      changeContentFunction(moviesFiltered);
       setCountMovies(
         `Found ${moviesFiltered.length} movies with the query '${querySearch}'`
       );
     } else {
-      const allMovies = async () => {
-        const responseMovies = await MovieAPI.getAll();
-        setMovies(responseMovies);
-        setCountMovies("");
-      };
-      allMovies();
+      resetMovieListFunction();
     }
-  }, [movies, querySearch, setMovies]);
+  };
 
   if (isLoading) {
     return <div className="loading"></div>;
@@ -52,11 +82,12 @@ const SearchForm = () => {
           </ul>
         </nav>
       </div>
-      <form id="search" className="search" onSubmit={(e) => e.preventDefault()}>
+      <form id="search" className="search">
         <input
           type="search"
           placeholder="Search for a title..."
           value={querySearch}
+          onKeyUp={manageMovieSearch}
           onChange={(e) => setQuerySearch(e.target.value)}
         />
         <div className="searchResults">{countMovies}</div>
